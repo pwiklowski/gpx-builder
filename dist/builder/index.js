@@ -757,12 +757,18 @@ class Esk8palPoint extends Point {
       voltage,
       current,
       used_energy,
-      trip_distance
+      trip_distance,
+      altitude,
+      speed
     } = options;
     const extensionPrefix = "esk8pal";
     const trackPointExtension = extensionPrefix + ":TrackPointExtension";
 
-    const data = _objectSpread$a({}, voltage ? {
+    const data = _objectSpread$a({}, speed ? {
+      [extensionPrefix + ":speed"]: speed
+    } : {}, {}, altitude ? {
+      [extensionPrefix + ":altitude"]: altitude
+    } : {}, {}, voltage ? {
       [extensionPrefix + ":voltage"]: voltage
     } : {}, {}, current ? {
       [extensionPrefix + ":current"]: current
