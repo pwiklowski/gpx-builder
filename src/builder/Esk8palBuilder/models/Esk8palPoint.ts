@@ -5,6 +5,9 @@ interface Esk8palPointOptions extends PointOptions {
   current?: number;
   used_energy?: number;
   trip_distance?: number;
+
+  altitude?: number;
+  speed?: number;
 }
 
 export default class Esk8palPoint extends Point {
@@ -14,11 +17,20 @@ export default class Esk8palPoint extends Point {
     options: Esk8palPointOptions = {}
   ) {
     super(lat, lon, options);
-    const { voltage, current, used_energy, trip_distance } = options;
+    const {
+      voltage,
+      current,
+      used_energy,
+      trip_distance,
+      altitude,
+      speed,
+    } = options;
 
     const extensionPrefix = "esk8pal";
     const trackPointExtension = `${extensionPrefix}:TrackPointExtension`;
     const data = {
+      ...(speed ? { [`${extensionPrefix}:speed`]: speed } : {}),
+      ...(altitude ? { [`${extensionPrefix}:altitude`]: altitude } : {}),
       ...(voltage ? { [`${extensionPrefix}:voltage`]: voltage } : {}),
       ...(current ? { [`${extensionPrefix}:current`]: current } : {}),
       ...(used_energy
